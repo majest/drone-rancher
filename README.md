@@ -10,7 +10,7 @@ https://hub.docker.com/r/majest/drone-rancher/
 ## Config
 The following parameters are used to configure this plugin:
 
-* **url** - url to your rancher server, including protocol and port
+* **rancher_url** - url to your rancher server, including protocol and port
 * **access_key** - rancher api access key
 * **secret_key** - rancher api secret key
 * **stack** - name of rancher stack to deploy to
@@ -22,11 +22,11 @@ The following parameters are used to configure this plugin:
 
 The following secret values can be set to configure the plugin.
 
-* **URL** corresponds to **url**
-* **RANCHER_ACCESS_KEY** corresponds to **access_key**
-* **RANCHER_SECRET_KEY** corresponds to **secret_key**
-* **RANCHER_STACK** corresponds to **stack**
-* **RANCHER_SERVICE** corresponds to **service**
+* **RANCHER_URL** corresponds to **rancher_url**
+* **ACCESS_KEY** corresponds to **access_key**
+* **SECRET_KEY** corresponds to **secret_key**
+* **STACK** corresponds to **stack**
+* **SERVICE** corresponds to **service**
 * **DOCKER_IMAGE** corresponds to **docker_image**
 * **START_FIRST** corresponds to **start_first**
 * **CONFIRM** corresponds to **confirm**
