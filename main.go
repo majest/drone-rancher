@@ -14,7 +14,7 @@ var build = "0" // build number set at compile-time
 
 type Rancher struct {
 	client     *client.RancherClient
-	Url        string `json:"url"`
+	RancherUrl string `json:"rancher_url"`
 	AccessKey  string `json:"access_key"`
 	SecretKey  string `json:"secret_key"`
 	Stack      string `json:"stack"`
@@ -27,55 +27,55 @@ type Rancher struct {
 
 func main() {
 	app := cli.NewApp()
-	app.Name = "docker rancher"
-	app.Usage = ""
+	app.Name = "rancher plugin"
+	app.Usage = "rancher plugin"
 	app.Action = run
 	app.Version = fmt.Sprintf("1.0.%s", build)
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
-			Name:   "url",
+			Name:   "rancher_url",
 			Usage:  "Url to your rancher server, including protocol and port",
-			EnvVar: "URL",
+			EnvVar: "PLUGIN_RANCHER_URL",
 		},
 		cli.StringFlag{
 			Name:   "access_key",
 			Usage:  "Rancher api access key",
-			EnvVar: "RANCHER_ACCESS_KEY",
+			EnvVar: "PLUGIN_ACCESS_KEY",
 		},
 		cli.StringFlag{
 			Name:   "secret_key",
 			Usage:  "Rancher api secret key",
-			EnvVar: "RANCHER_SECRET_KEY",
+			EnvVar: "PLUGIN_SECRET_KEY",
 		},
 		cli.StringFlag{
 			Name:   "service",
 			Usage:  "Name of rancher service to act on",
-			EnvVar: "RANCHER_SERVICE",
+			EnvVar: "PLUGIN_SERVICE",
 		},
 		cli.StringFlag{
 			Name:   "stack",
 			Usage:  "Name of rancher stack to act on",
-			EnvVar: "RANCHER_STACK",
+			EnvVar: "PLUGIN_STACK",
 		},
 		cli.StringFlag{
 			Name:   "docker_image",
 			Usage:  "New image to assign to service, including tag (drone/drone:latest)",
-			EnvVar: "DOCKER_IMAGE",
+			EnvVar: "PLUGIN_DOCKER_IMAGE",
 		},
 		cli.BoolFlag{
 			Name:   "start_first",
 			Usage:  "Start the new container before stopping the old one, defaults to true",
-			EnvVar: "START_FIRST",
+			EnvVar: "PLUGIN_START_FIRST",
 		},
 		cli.BoolFlag{
 			Name:   "confirm",
 			Usage:  "Auto confirm the service upgrade if successful, defaults to false",
-			EnvVar: "CONFIRM",
+			EnvVar: "PLUGIN_CONFIRM",
 		},
 		cli.Int64Flag{
 			Name:   "timeout",
 			Usage:  "the maximum wait time in seconds for the service to upgrade, default to 30",
-			EnvVar: "TIMEOUT",
+			EnvVar: "PLUGIN_TIMEOUT",
 			Value:  30,
 		},
 	}
@@ -88,7 +88,7 @@ func run(c *cli.Context) {
 	}
 
 	plugin := Rancher{
-		Url:        c.String("url"),
+		RancherUrl: c.String("rancher_url"),
 		AccessKey:  c.String("access_key"),
 		SecretKey:  c.String("secret_key"),
 		Service:    c.String("service"),
@@ -105,15 +105,17 @@ func run(c *cli.Context) {
 // Exec executes the plugin step
 func (r Rancher) Exec() {
 	rancher, err := client.NewRancherClient(&client.ClientOpts{
-		Url:       r.Url,
+		Url:       r.RancherUrl,
 		AccessKey: r.AccessKey,
 		SecretKey: r.SecretKey,
 	})
 
 	r.client = rancher
 
+	fmt.Printf("Deploying image %s to %s at %s/%s\n", r.Image, r.RancherUrl, r.Stack, r.Service)
+
 	if err != nil {
-		fmt.Printf("Failed to create rancher client: %s\n", err)
+		fmt.Printf("Failed to create rancher client: %s, Url: %s\n", err, r.RancherUrl)
 		os.Exit(1)
 	}
 
