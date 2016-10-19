@@ -9,9 +9,6 @@ pipeline:
       - make deps vet build
   docker:
     image: docker
-    username: $$DOCKER_USER
-    password: $$DOCKER_PASS
-    email: $$DOCKER_EMAIL
     repo: majest/drone-rancher
     tag: latest
     when:
