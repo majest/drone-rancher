@@ -1,0 +1,19 @@
+workspace:
+  base: /go
+
+pipeline:
+  build:
+    image: golang
+    environment:
+      - CGO_ENABLED=0
+    commands:
+      - make deps vet build
+  docker:
+    image: docker
+    username: $$DOCKER_USER
+    password: $$DOCKER_PASS
+    email: $$DOCKER_EMAIL
+    repo: majest/drone-rancher
+    tag: latest
+    when:
+      branch: master
