@@ -13,3 +13,9 @@ pipeline:
     tag: latest
     when:
       branch: master
+  docker:
+    image: docker
+    repo: majest/drone-rancher
+    tag: dev
+    when:
+      branch: dev
