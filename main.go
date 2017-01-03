@@ -35,47 +35,47 @@ func main() {
 		cli.StringFlag{
 			Name:   "rancher_url",
 			Usage:  "Url to your rancher server, including protocol and port",
-			EnvVar: "PLUGIN_RANCHER_URL",
+			EnvVar: "PLUGIN_RANCHER_URL,RANCHER_URL",
 		},
 		cli.StringFlag{
 			Name:   "access_key",
 			Usage:  "Rancher api access key",
-			EnvVar: "PLUGIN_ACCESS_KEY",
+			EnvVar: "PLUGIN_ACCESS_KEY,RANCHER_ACCESS_KEY",
 		},
 		cli.StringFlag{
 			Name:   "secret_key",
 			Usage:  "Rancher api secret key",
-			EnvVar: "PLUGIN_SECRET_KEY",
+			EnvVar: "PLUGIN_SECRET_KEY,RANCHER_SECRET_KEY",
 		},
 		cli.StringFlag{
 			Name:   "service",
 			Usage:  "Name of rancher service to act on",
-			EnvVar: "PLUGIN_SERVICE",
+			EnvVar: "PLUGIN_SERVICE,RANCHER_SERVICE",
 		},
 		cli.StringFlag{
 			Name:   "stack",
 			Usage:  "Name of rancher stack to act on",
-			EnvVar: "PLUGIN_STACK",
+			EnvVar: "PLUGIN_STACK,RANCHER_STACK",
 		},
 		cli.StringFlag{
 			Name:   "docker_image",
 			Usage:  "New image to assign to service, including tag (drone/drone:latest)",
-			EnvVar: "PLUGIN_DOCKER_IMAGE",
+			EnvVar: "PLUGIN_DOCKER_IMAGE,RANCHER_DOCKER_IMAGE",
 		},
 		cli.BoolFlag{
 			Name:   "start_first",
 			Usage:  "Start the new container before stopping the old one, defaults to true",
-			EnvVar: "PLUGIN_START_FIRST",
+			EnvVar: "PLUGIN_START_FIRST,RANCHER_START_FIRST",
 		},
 		cli.BoolFlag{
 			Name:   "confirm",
 			Usage:  "Auto confirm the service upgrade if successful, defaults to false",
-			EnvVar: "PLUGIN_CONFIRM",
+			EnvVar: "PLUGIN_CONFIRM,RANCHER_CONFIRM",
 		},
 		cli.Int64Flag{
 			Name:   "timeout",
 			Usage:  "the maximum wait time in seconds for the service to upgrade, default to 30",
-			EnvVar: "PLUGIN_TIMEOUT",
+			EnvVar: "PLUGIN_TIMEOUT,RANCHER_TIMEOUT",
 			Value:  30,
 		},
 	}
