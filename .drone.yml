@@ -8,14 +8,17 @@ pipeline:
     commands:
       - make deps vet build
   docker:
-    image: docker
+    image: plugins/docker
     repo: majest/drone-rancher
-    tag: latest
+    tags:
+      - latest
+      - 1.0.1
     when:
       branch: master
   docker:
-    image: docker
+    image: plugins/docker
     repo: majest/drone-rancher
-    tag: dev
+    tags:
+      - dev
     when:
       branch: dev
