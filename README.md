@@ -38,7 +38,7 @@ The following is a sample Rancher configuration in your `.drone.yml` file:
 ```yaml
 deploy:
   image: majest/drone-rancher
-  url: https://example.rancher.com
+  rancher_url: https://example.rancher.com
   access_key: 1234567abcdefg
   secret_key: abcdefg1234567
   stack: mystack
